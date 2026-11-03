@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Viboral Telecomunicaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./output.css" />
+  <link rel="stylesheet" href="./design-tokens.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+</head>
+<body class="min-h-screen p-6" style="background: var(--color-fondo); color: var(--color-texto);">
+
+  <header class="flex justify-between items-center mb-6">
+    <div class="flex items-center gap-2">
+      <img src="./assets/logo.png" alt="Viboral Telecomunicaciones" style="width: 1.75rem; height: 1.75rem; object-fit: contain;" />
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 1rem;">Satisfacción del servicio</span>
+    </div>
+    <button id="btn-logout" class="text-sm" style="color: var(--color-texto-secundario);">Cerrar sesión</button>
+  </header>
+
+  <section class="rounded-2xl border p-4 mb-6 flex flex-wrap gap-4 items-end" style="background: var(--color-superficie); border-color: var(--color-borde);">
+    <div>
+      <label for="filtro-desde" class="dato-tecnico block mb-1">Desde</label>
+      <input type="date" id="filtro-desde" class="campo-login" style="width: auto;" />
+    </div>
+    <div>
+      <label for="filtro-hasta" class="dato-tecnico block mb-1">Hasta</label>
+      <input type="date" id="filtro-hasta" class="campo-login" style="width: auto;" />
+    </div>
+    <div>
+      <label for="filtro-tecnico" class="dato-tecnico block mb-1">Técnico</label>
+      <select id="filtro-tecnico" class="campo-login" style="width: auto;"></select>
+    </div>
+    <div>
+      <label for="filtro-servicio" class="dato-tecnico block mb-1">Tipo de servicio</label>
+      <select id="filtro-servicio" class="campo-login" style="width: auto;"></select>
+    </div>
+    <button type="button" id="btn-limpiar-filtros" class="text-sm pb-2.5" style="color: var(--color-texto-secundario);">
+      Limpiar filtros
+    </button>
+  </section>
+
+  <section id="resumen-general" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"></section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <section class="rounded-2xl border p-5" style="background: var(--color-superficie); border-color: var(--color-borde);">
+    <p class="pregunta-titulo mb-4" style="font-size: 1rem;">Ranking de técnicos</p>
+    <div id="ranking-tecnicos"></div>
+  </section>
+
+    <section class="rounded-2xl border p-5 " style="background: var(--color-superficie); border-color: var(--color-borde);">
+   <div class="flex flex-wrap items-end justify-between gap-4 mb-4">
+    <p class="pregunta-titulo" style="font-size: 1rem;">Clientes encuestados</p>
+    <div class="flex flex-wrap gap-3 items-end">
+      <div>
+        <label for="busqueda-cliente" class="dato-tecnico block mb-1">Buscar</label>
+        <input type="text" id="busqueda-cliente" placeholder="Nombre, cédula o contrato" class="campo-login" style="width: 220px;" />
+      </div>
+      <div>
+        <label for="filtro-estado-envio" class="dato-tecnico block mb-1">Estado</label>
+        <select id="filtro-estado-envio" class="campo-login" style="width: auto;">
+          <option value="">Todos</option>
+          <option value="respondida">Respondida</option>
+          <option value="pendiente">Pendiente</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="overflow-auto" style="max-height: 420px;">
+    <table class="w-full text-sm" style="border-collapse: collapse;">
+      <thead>
+        <tr style="position: sticky; top: 0; background: var(--color-superficie);">
+          <th class="text-left py-2 pr-4 dato-tecnico">Nombre</th>
+          <th class="text-left py-2 pr-4 dato-tecnico">Cédula</th>
+          <th class="text-left py-2 pr-4 dato-tecnico">Contrato</th>
+          <th class="text-left py-2 pr-4 dato-tecnico">Dirección</th>
+          <th class="text-left py-2 pr-4 dato-tecnico">Servicio</th>
+          <th class="text-left py-2 pr-4 dato-tecnico">Técnico</th>
+          <th class="text-left py-2 dato-tecnico">Estado</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-clientes-encuestados"></tbody>
+    </table>
+  </div>
+
+  <p id="contador-clientes" class="text-sm mt-3" style="color: var(--color-texto-secundario);"></p>
+</section>
+
+    <section class="rounded-2xl border p-5" style="background: var(--color-superficie); border-color: var(--color-borde);">
+      <p class="pregunta-titulo mb-4" style="font-size: 1rem;">Fallas más comunes — Internet</p>
+      <canvas id="chart-fallas-internet" height="220"></canvas>
+    </section>
+
+    <section class="rounded-2xl border p-5" style="background: var(--color-superficie); border-color: var(--color-borde);">
+      <p class="pregunta-titulo mb-4" style="font-size: 1rem;">Fallas más comunes — Televisión</p>
+      <canvas id="chart-fallas-television" height="220"></canvas>
+    </section>
+
+    <section class="rounded-2xl border p-5 lg:col-span-2" style="background: var(--color-superficie); border-color: var(--color-borde);">
+      <p class="pregunta-titulo mb-4" style="font-size: 1rem;">Tendencia de satisfacción</p>
+      <canvas id="chart-tendencia" height="100"></canvas>
+    </section>
+  </div>
+
+  
+
+
+  <script type="module" src="../src/dashboard/graficos.js"></script>
+</body>
+</html>

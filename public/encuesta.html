@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuesta de satisfacción — Viboral Telecomunicaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./output.css" />
+  <link rel="stylesheet" href="./design-tokens.css" />
+</head>
+<body class="min-h-screen flex flex-col md:flex-row">
+
+  <!-- Panel de marca: solo visible en pantallas medianas/grandes -->
+  <aside class="panel-circuito hidden md:flex md:w-2/5 flex-col justify-center items-start px-16 py-12">
+    <svg class="lineas-circuito" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <path d="M20 12 L20 40 L70 40 L70 12" stroke="var(--color-borde)" stroke-width="0.3" fill="none" vector-effect="non-scaling-stroke" />
+      <path d="M15 85 L45 85 L45 60 L80 60" stroke="var(--color-borde)" stroke-width="0.3" fill="none" vector-effect="non-scaling-stroke" />
+      <circle cx="20" cy="12" r="0.8" fill="var(--color-marca)" />
+      <circle cx="70" cy="40" r="0.8" fill="var(--color-marca)" />
+      <circle cx="45" cy="85" r="0.8" fill="var(--color-acento-2)" />
+      <circle cx="80" cy="60" r="0.8" fill="var(--color-acento-2)" />
+    </svg>
+    <div class="paquete-datos naranja"></div>
+    <div class="paquete-datos cian"></div>
+
+    <img
+      src="./assets/logo.png"
+      alt="Viboral Telecomunicaciones"
+      class="relative mb-6"
+      style="width: 4.5rem; height: 4.5rem; object-fit: contain; filter: drop-shadow(0 0 16px rgba(255, 161, 31, 0.55));"
+    />
+    <h1 class="relative font-semibold text-2xl leading-snug mb-3" style="font-family: var(--font-display); color: var(--color-texto);">
+      Viboral Telecomunicaciones
+    </h1>
+    <p class="relative text-sm max-w-xs" style="color: var(--color-texto-secundario);">
+      Tu opinión nos ayuda a mejorar cada visita técnica. Toma menos de 2 minutos.
+    </p>
+  </aside>
+
+  
+  <main class="flex-1 flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-md">
+
+      <header class="flex items-center gap-2 mb-6 md:hidden">
+        <img src="./assets/logo.png" alt="Viboral Telecomunicaciones" class="h-7 w-auto" />
+        <h1 class="relative font-semibold text-2xl leading-snug mb-3" style="font-family: var(--font-display); color: var(--color-texto);">
+      Viboral Telecomunicaciones
+    </h1>
+    
+      </header>
+
+      <div class="rounded-2xl border p-6 md:p-8" style="background: var(--color-superficie); border-color: var(--color-borde);">
+        <div class="h-1 rounded-full overflow-hidden mb-2" style="background: var(--color-borde);">
+          <div
+            id="barra-progreso"
+            class="h-full"
+            style="background: var(--color-marca); box-shadow: 0 0 8px 1px rgba(255, 161, 31, 0.6); width: 0%; transition: width 0.2s ease;"
+          ></div>
+        </div>
+        <p id="texto-progreso" class="dato-tecnico mb-6"></p>
+
+        <div id="estado-carga" style="color: var(--color-texto-secundario);">Cargando encuesta...</div>
+
+        <form id="form-encuesta" class="hidden">
+          <div id="contenedor-pregunta" class="space-y-6"></div>
+
+          <div class="flex justify-between items-center mt-8 pt-4" style="border-top: 1px solid var(--color-borde);">
+            <button type="button" id="btn-atras" class="text-sm" style="color: var(--color-texto-secundario);">
+              ‹ Atrás
+            </button>
+            <button
+              type="submit"
+              id="btn-siguiente"
+              class="font-medium text-sm px-5 py-2.5 rounded-lg"
+              style="background: var(--color-marca); color: var(--color-fondo); box-shadow: 0 0 16px 2px rgba(255, 161, 31, 0.5);"
+            >
+              Siguiente ›
+            </button>
+          </div>
+        </form>
+
+        <div id="estado-final" class="hidden text-center py-10" style="color: var(--color-texto-secundario);"></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="../src/encuesta/render-formulario.js"></script>
+</body>
+</html>
